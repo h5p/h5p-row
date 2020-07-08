@@ -1,0 +1,35 @@
+[
+  {
+    "name": "columns",
+    "type": "list",
+    "label": "Columns",
+    "importance": "high",
+    "field": {
+      "name": "column",
+      "type": "group",
+      "importance": "high",
+      "fields": [
+        {
+          "name": "width",
+          "label": "Width",
+          "type": "number",
+          "widget": "none"
+        },
+        {
+          "name": "paddings",
+          "label": "Paddings",
+          "type": "number",
+          "widget": "none"
+        },
+        {
+          "name": "content",
+          "label": "Column",
+          "type": "library",
+          "options": [
+            "H5P.Column 1.12"
+          ]
+        }
+      ]
+    }
+  }
+]
