@@ -12,14 +12,12 @@
         {
           "name": "width",
           "label": "Width",
-          "type": "number",
-          "widget": "none"
+          "type": "number"
         },
         {
           "name": "paddings",
           "label": "Paddings",
-          "type": "number",
-          "widget": "none"
+          "type": "number"
         },
         {
           "name": "content",
