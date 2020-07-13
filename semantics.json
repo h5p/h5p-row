@@ -12,12 +12,56 @@
         {
           "name": "width",
           "label": "Width",
-          "type": "number"
+          "type": "number",
+          "description": "Column width in percentage"
         },
         {
           "name": "paddings",
           "label": "Paddings",
-          "type": "number"
+          "type": "group",
+          "description": "Column paddings",
+          "fields": [
+            {
+              "name": "top",
+              "type": "number",
+              "label": "top",
+              "default": 10
+            },
+            {
+              "name": "right",
+              "type": "number",
+              "label": "right",
+              "default": 10
+            },
+            {
+              "name": "bottom",
+              "type": "number",
+              "label": "bottom",
+              "default": 10
+            },
+            {
+              "name": "left",
+              "type": "number",
+              "label": "left",
+              "default": 10
+            },
+            {
+              "name": "unit",
+              "type": "select",
+              "label": "Unit (px/em)",
+              "options": [
+                {
+                  "value": "px",
+                  "label": "px"
+                },
+                {
+                  "value": "em",
+                  "label": "em"
+                }
+              ],
+              "default": "px"
+            }
+          ]
         },
         {
           "name": "content",
