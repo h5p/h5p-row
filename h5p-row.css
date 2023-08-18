@@ -1,3 +1,12 @@
 .h5p-row {
-  background: salmon;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.h5p-column {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }

@@ -30,10 +30,13 @@ H5P.Row = (function (EventDispatcher) {
     var createHTML = function () {
       // Create wrapper
       wrapper = document.createElement('div');
+      wrapper.classList.add('h5p-row');
 
       for (var i = 0; i < params.columns.length; i++) {
         var column = document.createElement('div');
         var columnData = params.columns[i];
+
+        column.classList.add('h5p-column');
 
         var h5pRunnable = H5P.newRunnable(columnData.content, columnData.content.subContentId);
         h5pRunnable.attach(H5P.jQuery(column));
