@@ -20,7 +20,7 @@ H5P.Row = (function (EventDispatcher) {
 
     // Wrapper element
     var wrapper;
-
+    console.log(params);
     /**
      * Create the HTML for the content type the first time it's attached to
      * the DOM.
@@ -31,11 +31,16 @@ H5P.Row = (function (EventDispatcher) {
       // Create wrapper
       wrapper = document.createElement('div');
 
-      // For now we just print the data :-)
-      const pre = document.createElement('pre');
-      pre.innerText = JSON.stringify(params, null, 2);
+      for (var i = 0; i < params.columns.length; i++) {
+        var column = document.createElement('div');
+        var columnData = params.columns[i];
 
-      wrapper.appendChild(pre);
+        var h5pRunnable = H5P.newRunnable(columnData.content, columnData.content.subContentId);
+        h5pRunnable.attach(H5P.jQuery(column));
+
+        wrapper.appendChild(column);
+      }
+
     };
 
     /**
