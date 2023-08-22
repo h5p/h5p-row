@@ -37,9 +37,16 @@ H5P.Row = (function (EventDispatcher) {
         var columnData = params.columns[i];
 
         column.classList.add('h5p-column');
-
         if (columnData.width) {
-          column.style.width = columnData.width;
+          column.style.width = columnData.width + '%';
+        }
+
+        if (columnData.paddings) {
+          const unit =  columnData.paddings.unit;
+          column.style.paddingTop = columnData.paddings.top + unit;
+          column.style.paddingBottom = columnData.paddings.bottom + unit;
+          column.style.paddingLeft = columnData.paddings.left + unit;
+          column.style.paddingRight = columnData.paddings.right + unit;
         }
 
         var h5pRunnable = H5P.newRunnable(columnData.content, columnData.content.subContentId);
