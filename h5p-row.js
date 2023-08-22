@@ -20,7 +20,7 @@ H5P.Row = (function (EventDispatcher) {
 
     // Wrapper element
     var wrapper;
-    console.log(params);
+
     /**
      * Create the HTML for the content type the first time it's attached to
      * the DOM.
@@ -37,6 +37,10 @@ H5P.Row = (function (EventDispatcher) {
         var columnData = params.columns[i];
 
         column.classList.add('h5p-column');
+
+        if (columnData.width) {
+          column.style.width = columnData.width;
+        }
 
         var h5pRunnable = H5P.newRunnable(columnData.content, columnData.content.subContentId);
         h5pRunnable.attach(H5P.jQuery(column));
