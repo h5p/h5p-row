@@ -32,9 +32,9 @@ H5P.Row = (function (EventDispatcher) {
       wrapper = document.createElement('div');
       wrapper.classList.add('h5p-row');
 
-      for (var i = 0; i < params.columns.length; i++) {
-        var column = document.createElement('div');
-        var columnData = params.columns[i];
+      for (let i = 0; i < params.columns.length; i++) {
+        const column = document.createElement('div');
+        const columnData = params.columns[i];
 
         column.classList.add('h5p-column');
         if (columnData.width) {
@@ -49,7 +49,7 @@ H5P.Row = (function (EventDispatcher) {
           column.style.paddingRight = columnData.paddings.right + unit;
         }
 
-        var h5pRunnable = H5P.newRunnable(columnData.content, columnData.content.subContentId);
+        const h5pRunnable = H5P.newRunnable(columnData.content, columnData.content.subContentId);
         h5pRunnable.attach(H5P.jQuery(column));
 
         wrapper.appendChild(column);
@@ -69,7 +69,7 @@ H5P.Row = (function (EventDispatcher) {
       }
 
       // Add to DOM
-      $container.addClass('h5p-row').html('').append(wrapper);
+      $container.html('').append(wrapper);
     };
 
     // TODO: Add required xAPI stuff once we get child instances
