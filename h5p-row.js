@@ -10,7 +10,7 @@ H5P.Row = (function (EventDispatcher) {
    */
   function Row(params, id, data) {
     /** @alias H5P.Row# */
-    var self = this;
+    const self = this;
 
     // We support events by extending this class
     EventDispatcher.call(self);
@@ -19,7 +19,7 @@ H5P.Row = (function (EventDispatcher) {
     params = params || {};
 
     // Wrapper element
-    var wrapper;
+    let wrapper;
 
     /**
      * Create the HTML for the content type the first time it's attached to
@@ -27,7 +27,7 @@ H5P.Row = (function (EventDispatcher) {
      *
      * @private
      */
-    var createHTML = function () {
+    const createHTML = function () {
       // Create wrapper
       wrapper = document.createElement('div');
       wrapper.classList.add('h5p-row-wrapper');
