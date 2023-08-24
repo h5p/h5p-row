@@ -10,7 +10,7 @@ H5P.Row = (function (EventDispatcher) {
    */
   function Row(params, id, data) {
     /** @alias H5P.Row# */
-    var self = this;
+    const self = this;
 
     // We support events by extending this class
     EventDispatcher.call(self);
@@ -19,7 +19,7 @@ H5P.Row = (function (EventDispatcher) {
     params = params || {};
 
     // Wrapper element
-    var wrapper;
+    let wrapper;
 
     /**
      * Create the HTML for the content type the first time it's attached to
@@ -27,15 +27,34 @@ H5P.Row = (function (EventDispatcher) {
      *
      * @private
      */
-    var createHTML = function () {
+    const createHTML = function () {
       // Create wrapper
       wrapper = document.createElement('div');
+      wrapper.classList.add('h5p-row-wrapper');
 
-      // For now we just print the data :-)
-      const pre = document.createElement('pre');
-      pre.innerText = JSON.stringify(params, null, 2);
+      for (let i = 0; i < params.columns.length; i++) {
+        const column = document.createElement('div');
+        const columnData = params.columns[i];
 
-      wrapper.appendChild(pre);
+        column.classList.add('h5p-row-content');
+        if (columnData.width) {
+          column.style.width = columnData.width + '%';
+        }
+
+        if (columnData.paddings) {
+          const unit =  columnData.paddings.unit;
+          column.style.paddingTop = columnData.paddings.top + unit;
+          column.style.paddingBottom = columnData.paddings.bottom + unit;
+          column.style.paddingLeft = columnData.paddings.left + unit;
+          column.style.paddingRight = columnData.paddings.right + unit;
+        }
+
+        const h5pRunnable = H5P.newRunnable(columnData.content, columnData.content.subContentId);
+        h5pRunnable.attach(H5P.jQuery(column));
+
+        wrapper.appendChild(column);
+      }
+
     };
 
     /**
