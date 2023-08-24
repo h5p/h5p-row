@@ -30,7 +30,7 @@ H5P.Row = (function (EventDispatcher) {
     var createHTML = function () {
       // Create wrapper
       wrapper = document.createElement('div');
-      wrapper.classList.add('h5p-row');
+      wrapper.classList.add('h5p-row-wrapper');
 
       for (let i = 0; i < params.columns.length; i++) {
         const column = document.createElement('div');
@@ -69,7 +69,7 @@ H5P.Row = (function (EventDispatcher) {
       }
 
       // Add to DOM
-      $container.html('').append(wrapper);
+      $container.addClass('h5p-row').html('').append(wrapper);
     };
 
     // TODO: Add required xAPI stuff once we get child instances
