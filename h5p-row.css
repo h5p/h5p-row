@@ -5,7 +5,7 @@
   justify-content: space-evenly;
 }
 
-.h5p-column {
+.h5p-row-content {
   display: flex;
   flex-direction: column;
   width: 100%;
