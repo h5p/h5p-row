@@ -36,7 +36,7 @@ H5P.Row = (function (EventDispatcher) {
         const column = document.createElement('div');
         const columnData = params.columns[i];
 
-        column.classList.add('h5p-column');
+        column.classList.add('h5p-row-content');
         if (columnData.width) {
           column.style.width = columnData.width + '%';
         }
