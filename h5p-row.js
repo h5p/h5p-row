@@ -5,10 +5,10 @@ H5P.Row = (function (EventDispatcher) {
    *
    * @class
    * @param {Object} params Describes task behavior
-   * @param {number} id Content identifier
+   * @param {number} rootId Content identifier
    * @param {Object} data User specific data to adapt behavior
    */
-  function Row(params, id, data) {
+  function Row(params, rootId, data) {
     /** @alias H5P.Row# */
     const self = this;
 
@@ -49,7 +49,7 @@ H5P.Row = (function (EventDispatcher) {
           column.style.paddingRight = columnData.paddings.right + unit;
         }
 
-        const h5pRunnable = H5P.newRunnable(columnData.content, columnData.content.subContentId);
+        const h5pRunnable = H5P.newRunnable(columnData.content, rootId);
         h5pRunnable.attach(H5P.jQuery(column));
 
         wrapper.appendChild(column);
