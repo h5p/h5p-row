@@ -94,7 +94,53 @@ H5P.Row = (function (EventDispatcher) {
       $container.addClass('h5p-row').html('').append(wrapper);
     };
 
-    // TODO: Add required xAPI stuff once we get child instances
+    /**
+     * Get xAPI data.
+     * Contract used by report rendering engine.
+     *
+     * NB! This implementation is different from expected use of getXAPIData,
+     * as row is only used as a subcontent container, and would therefore
+     * clutter the final xapi statement with needless nesting.
+     *
+     * @see contract at {@link https://h5p.org/documentation/developers/contracts#guides-header-6}
+     */
+    self.getXAPIData = function () {      
+      return instances.flatMap(function (child) {
+        if (typeof child.getXAPIData == 'function') {
+          return child.getXAPIData().children;
+        }
+      }).filter(data => !!data);
+    }
+
+    /**
+     * Get answer given
+     * Contract.
+     *
+     * @return {boolean} True, if all answers have been given.
+     */
+    self.getAnswerGiven = function () {
+      return instances.reduce(function (prev, instance) {
+        return prev && (instance.getAnswerGiven ? instance.getAnswerGiven() : prev);
+      }, true);
+    };
+
+    /**
+     * Get instances for all children
+     *
+     * @return {Object[]} array of instances
+     */
+    self.getInstances = function () {
+      return instances;
+    };
+
+    /**
+     * Get title, e.g. for xAPI
+     *
+     * @return {string} Title.
+     */
+    self.getTitle = function () {
+      return H5P.createTitle((self.contentData && self.contentData.metadata && self.contentData.metadata.title) ? self.contentData.metadata.title : '');
+    };
 
     // Resize children to fit inside parent
     bubbleDown(self, 'resize', instances);
