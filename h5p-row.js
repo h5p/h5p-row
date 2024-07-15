@@ -95,16 +95,16 @@ H5P.Row = (function (EventDispatcher) {
     };
 
     /**
-     * Get xAPI data.
-     * Contract used by report rendering engine.
-     *
-     * NB! This implementation is different from expected use of getXAPIData,
-     * as row is only used as a subcontent container, and would therefore
-     * clutter the final xapi statement with needless nesting.
-     *
-     * @see contract at {@link https://h5p.org/documentation/developers/contracts#guides-header-6}
+     * Get xAPI data from children
+     * 
+     * The contract function getXAPIData is not implemented here, as Row
+     * is only used as a subcontent, and special handling needs to occur to
+     * prevent needless clutter in the final xAPI statement.
+     * 
+     * @return {Array} Array of the children of the contained columns
+     * and their xAPI statements.
      */
-    self.getXAPIData = function () {      
+    self.getXAPIDataFromChildren = function () {
       return instances.flatMap(function (child) {
         if (typeof child.getXAPIData == 'function') {
           return child.getXAPIData().children;
