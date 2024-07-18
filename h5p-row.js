@@ -94,7 +94,53 @@ H5P.Row = (function (EventDispatcher) {
       $container.addClass('h5p-row').html('').append(wrapper);
     };
 
-    // TODO: Add required xAPI stuff once we get child instances
+    /**
+     * Get xAPI data from children
+     * 
+     * The contract function getXAPIData is not implemented here, as Row
+     * is only used as a subcontent, and special handling needs to occur to
+     * prevent needless clutter in the final xAPI statement.
+     * 
+     * @return {Array} Array of the children of the contained columns
+     * and their xAPI statements.
+     */
+    self.getXAPIDataFromChildren = function () {
+      return instances.flatMap(function (child) {
+        if (typeof child.getXAPIData == 'function') {
+          return child.getXAPIData().children;
+        }
+      }).filter(data => !!data);
+    }
+
+    /**
+     * Get answer given
+     * Contract.
+     *
+     * @return {boolean} True, if all answers have been given.
+     */
+    self.getAnswerGiven = function () {
+      return instances.reduce(function (prev, instance) {
+        return prev && (instance.getAnswerGiven ? instance.getAnswerGiven() : prev);
+      }, true);
+    };
+
+    /**
+     * Get instances for all children
+     *
+     * @return {Object[]} array of instances
+     */
+    self.getInstances = function () {
+      return instances;
+    };
+
+    /**
+     * Get title, e.g. for xAPI
+     *
+     * @return {string} Title.
+     */
+    self.getTitle = function () {
+      return H5P.createTitle((self.contentData && self.contentData.metadata && self.contentData.metadata.title) ? self.contentData.metadata.title : '');
+    };
 
     // Resize children to fit inside parent
     bubbleDown(self, 'resize', instances);
