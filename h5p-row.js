@@ -134,7 +134,61 @@ H5P.Row = (function (EventDispatcher) {
     };
 
     /**
-     * Get title, e.g. for xAPI
+     * Get score for all children
+     * Contract used for getting the complete score of task.
+     *
+     * @return {number} Score for questions
+     */
+    self.getScore = function () {
+      return instances.reduce(function (prev, instance) {
+        return prev + (instance.getScore ? instance.getScore() : 0);
+      }, 0);
+    };
+
+    /**
+     * Get maximum score possible for all children instances
+     * Contract.
+     *
+     * @return {number} Maximum score for questions
+     */
+    self.getMaxScore = function () {
+      return instances.reduce(function (prev, instance) {
+        return prev + (instance.getMaxScore ? instance.getMaxScore() : 0);
+      }, 0);
+    };
+
+    /**
+     * Show solutions.
+     * Contract.
+     */
+    self.showSolutions = function () {
+      instances.forEach(function (instance) {
+        if (instance.toggleReadSpeaker) {
+          instance.toggleReadSpeaker(true);
+        }
+        if (instance.showSolutions) {
+          instance.showSolutions();
+        }
+        if (instance.toggleReadSpeaker) {
+          instance.toggleReadSpeaker(false);
+        }
+      });
+    };
+
+    /**
+     * Reset task.
+     * Contract.
+     */
+    self.resetTask = function () {
+      instances.forEach(function (instance) {
+        if (instance.resetTask) {
+          instance.resetTask();
+        }
+      });
+    };
+
+    /**
+     * Get title
      *
      * @return {string} Title.
      */
