@@ -17,6 +17,13 @@ H5P.Row = (function (EventDispatcher) {
 
     // Add defaults
     params = params || {};
+    params.columns = params.columns || [];
+
+    // Remove empty columns
+    params.columns = params.columns.filter(column => {
+      // Check if column is not null/undefined and has any properties
+      return column && Object.keys(column).length > 0;
+    });
 
     // Wrapper element
     let wrapper;
