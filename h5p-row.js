@@ -77,7 +77,6 @@ H5P.Row = (function (EventDispatcher) {
 
         wrapper.appendChild(column);
       }
-
     };
 
     /**
@@ -202,6 +201,12 @@ H5P.Row = (function (EventDispatcher) {
     self.getTitle = function () {
       return H5P.createTitle((self.contentData && self.contentData.metadata && self.contentData.metadata.title) ? self.contentData.metadata.title : '');
     };
+
+    // Allow instances to be available before row is attached
+    if (wrapper === undefined) {
+      // Create wrapper and content
+      createHTML();
+    }
 
     // Resize children to fit inside parent
     bubbleDown(self, 'resize', instances);
