@@ -62,7 +62,7 @@ H5P.Row = (function (EventDispatcher) {
           column.style.paddingRight = columnData.paddings.right + unit;
         }
 
-        const instance = H5P.newRunnable(columnData.content, rootId);
+        const instance = H5P.newRunnable(columnData.content, rootId, undefined, true, grabContentData(i));
 
         // Bubble resize events received from column
         bubbleUp(instance, 'resize', self);
@@ -77,6 +77,25 @@ H5P.Row = (function (EventDispatcher) {
 
         wrapper.appendChild(column);
       }
+    };
+
+    /**
+     * Get data for content at given index, like previous state
+     *
+     * @private
+     * @param {number} index
+     * @returns {Object} Data object with previous state
+     */
+    const grabContentData = function (index) {
+      var contentData = {
+        parent: self
+      };
+
+      if (data.previousState && data.previousState.instances && data.previousState.instances[index]) {
+        contentData.previousState = data.previousState.instances[index];
+      }
+
+      return contentData;
     };
 
     /**
@@ -191,6 +210,33 @@ H5P.Row = (function (EventDispatcher) {
           instance.resetTask();
         }
       });
+    };
+
+    /**
+     * Create object containing information about the current state
+     * of this content.
+     *
+     * @return {Object}
+     */
+    self.getCurrentState = function () {
+      // Get previous state object or create new state object
+      var state = (data.previousState ? data.previousState : {});
+      if (!state.instances) {
+        state.instances = [];
+      }
+
+      // Grab the current state for each instance
+      for (var i = 0; i < instances.length; i++) {
+        var instance = instances[i];
+
+        if (instance.getCurrentState instanceof Function ||
+            typeof instance.getCurrentState === 'function') {
+
+          state.instances[i] = instance.getCurrentState();
+        }
+      }
+
+      return state;
     };
 
     /**
