@@ -11,7 +11,7 @@
   width: 100%;
 }
 
-@media (max-width: 425px) {
+@media (max-width: 480px) {
   .h5p-row-wrapper {
     flex-direction: column;
   }
