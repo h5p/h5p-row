@@ -10,3 +10,13 @@
   flex-direction: column;
   width: 100%;
 }
+
+@media (max-width: 480px) {
+  .h5p-row-wrapper {
+    flex-direction: column;
+  }
+
+  .h5p-row-content {
+    width: 100% !important;
+  }
+}
