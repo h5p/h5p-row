@@ -51,15 +51,8 @@ H5P.Row = (function (EventDispatcher) {
 
         column.classList.add('h5p-row-content');
         if (columnData.width) {
-          column.style.width = columnData.width + '%';
-        }
-
-        if (columnData.paddings) {
-          const unit =  columnData.paddings.unit;
-          column.style.paddingTop = columnData.paddings.top + unit;
-          column.style.paddingBottom = columnData.paddings.bottom + unit;
-          column.style.paddingLeft = columnData.paddings.left + unit;
-          column.style.paddingRight = columnData.paddings.right + unit;
+          column.style.flexBasis = columnData.width + '%';
+          column.style.flexGrow = '0'; // Prevent growing when width has been specified
         }
 
         const instance = H5P.newRunnable(columnData.content, rootId, undefined, true, grabContentData(i));
@@ -121,11 +114,11 @@ H5P.Row = (function (EventDispatcher) {
 
     /**
      * Get xAPI data from children
-     * 
+     *
      * The contract function getXAPIData is not implemented here, as Row
      * is only used as a subcontent, and special handling needs to occur to
      * prevent needless clutter in the final xAPI statement.
-     * 
+     *
      * @return {Array} Array of the children of the contained columns
      * and their xAPI statements.
      */
