@@ -52,7 +52,7 @@ H5P.Row = (function (EventDispatcher) {
         column.classList.add('h5p-row-content');
         if (columnData.width) {
           column.style.flexBasis = columnData.width + '%';
-          column.style.flexGrow = '0'; // Prevent growing when width has been specified
+          column.classList.add('h5p-row-content-fixed-width');
         }
 
         const instance = H5P.newRunnable(columnData.content, rootId, undefined, true, grabContentData(i));
