@@ -1,4 +1,56 @@
 H5P.Row = (function (EventDispatcher) {
+  const ROW_WIDTH = 100;
+  const MINIMUM_COLUMN_SIZE = 10;
+
+  function addMissingWidthsToColumns(columns) {
+    let remainingWidth = 100;
+    let amountOfNoWidths = 0;
+    columns.forEach((c) => {
+      if (typeof c.width !== 'undefined'
+          && c.width >= MINIMUM_COLUMN_SIZE
+          && c.width <= ROW_WIDTH) {
+        remainingWidth -= c.width;
+      } else {
+        // Reset width if it was set to something invalid.
+        c.width = undefined;
+        amountOfNoWidths++;
+      }
+    });
+    if (amountOfNoWidths > 0) {
+      const adjustedColumns = columns.map((c) => {
+        if (typeof c.width === 'undefined') {
+          c.width = Math.max(MINIMUM_COLUMN_SIZE, remainingWidth / amountOfNoWidths);
+        }
+        return c
+      });
+      return adjustedColumns;
+    }
+
+    return columns;
+  }
+
+  function autoAdjustColumnWidths (columns) {
+    const totalWidth = columns.reduce((sum, column) => {
+      if (Number.isFinite(column.width)) {
+        sum += column.width;
+      }
+      return sum;
+    }, 0);
+
+    if (totalWidth !== ROW_WIDTH) {
+      const addToMiddle = !Number.isInteger(ROW_WIDTH / columns.length);
+      const rest = ROW_WIDTH - Math.floor(ROW_WIDTH / columns.length) * columns.length;
+      const middlePoint = (columns.length / 2) - 1;
+      for (let i = 0; i < columns.length; i++) {
+        if (addToMiddle && i === middlePoint) {
+          columns[i].width = Math.floor(ROW_WIDTH / columns.length) + rest;
+        } else {
+          columns[i].width = Math.floor(ROW_WIDTH / columns.length);
+        }
+      }
+    }
+    return columns;
+  }
 
   /**
    * Row Constructor
@@ -25,6 +77,8 @@ H5P.Row = (function (EventDispatcher) {
       return column && Object.keys(column).length > 0;
     });
 
+    params.columns = addMissingWidthsToColumns(params.columns);
+    params.columns = autoAdjustColumnWidths(params.columns);
     // Wrapper element
     let wrapper;
 
