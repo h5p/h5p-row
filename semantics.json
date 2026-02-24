@@ -23,7 +23,7 @@
           "label": "Column",
           "type": "library",
           "options": [
-            "H5P.RowColumn 1.0"
+            "H5P.RowColumn 1.1"
           ]
         }
       ]
